@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互動式簡報 - 目標型深暗網情資蒐整報告 (淺色主題)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #F9FAFB; /* Light background */
+            color: #1F2937; /* Dark text */
+        }
+        .slide {
+            display: none;
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            border-left: 4px solid #3b82f6; /* Blue accent */
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+        .card {
+            background-color: #FFFFFF; /* White card */
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #E5E7EB;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.1), 0 10px 10px -5px rgba(59, 130, 246, 0.05);
+        }
+        .nav-button {
+            position: fixed;
+            bottom: 2rem;
+            background-color: #3B82F6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            z-index: 100;
+        }
+        .nav-button:hover {
+            background-color: #2563EB;
+            transform: scale(1.05);
+        }
+        #prevBtn {
+            left: 2rem;
+        }
+        #nextBtn {
+            right: 2rem;
+        }
+        .progress-bar-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background-color: #E5E7EB;
+            z-index: 99;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #3B82F6;
+            width: 0;
+            transition: width 0.3s ease-in-out;
+        }
+        .tab {
+            cursor: pointer;
+            padding: 0.75rem 1.5rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            color: #3B82F6;
+            border-bottom-color: #3B82F6;
+            font-weight: 700;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Slide 1: Title -->
+    <div id="slide1" class="slide active">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-4">目標型深暗網情資蒐整報告</h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-2">114-115年度網路資訊安全防護監控服務</p>
+            <div class="mt-8 text-lg text-gray-500">
+                <p>客戶：環境部</p>
+                <p>廠商：安碁資訊股份有限公司</p>
+                <p>日期：114年8月27日</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: Executive Summary -->
+    <div id="slide2" class="slide">
+        <div class="card w-full max-w-4xl text-center">
+            <h2 class="text-3xl font-bold text-blue-600 mb-6">執行概述</h2>
+            <div class="space-y-4 text-left text-lg">
+                <div class="flex items-start">
+                    <svg class="w-6 h-6 mr-3 mt-1 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <p><strong class="font-semibold">依據：</strong>依「資通安全整合服務案」工作計畫書規定辦理。</p>
+                </div>
+                <div class="flex items-start">
+                    <svg class="w-6 h-6 mr-3 mt-1 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <p><strong class="font-semibold">執行標的：</strong>針對網域 <code class="bg-gray-100 text-pink-600 px-2 py-1 rounded">moenv.gov.tw</code> 進行情資蒐整。</p>
+                </div>
+                <div class="flex items-start">
+                    <svg class="w-6 h-6 mr-3 mt-1 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <p><strong class="font-semibold">執行期間：</strong>113年4月1日起至114年8月27日止。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Key Findings -->
+    <div id="slide3" class="slide">
+        <div class="w-full max-w-5xl text-center">
+            <h2 class="text-3xl font-bold text-blue-600 mb-8">情蒐結果摘要</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Leaked Credentials Card -->
+                <div class="card border-t-4 border-red-500">
+                    <div class="flex flex-col items-center">
+                        <svg class="w-16 h-16 mb-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        <h3 class="text-xl font-bold mb-2">外洩之憑證</h3>
+                        <p class="text-5xl font-bold text-red-500">1,300<span class="text-xl ml-2">筆</span></p>
+                        <span class="mt-4 text-sm font-semibold text-white bg-red-600 px-3 py-1 rounded-full">高風險</span>
+                    </div>
+                </div>
+                <!-- Compromised Endpoints Card -->
+                <div class="card border-t-4 border-yellow-500">
+                     <div class="flex flex-col items-center">
+                        <svg class="w-16 h-16 mb-4 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <h3 class="text-xl font-bold mb-2">受影響端點</h3>
+                        <p class="text-5xl font-bold text-yellow-500">0<span class="text-xl ml-2">筆</span></p>
+                        <span class="mt-4 text-sm font-semibold text-white bg-yellow-600 px-3 py-1 rounded-full">中風險</span>
+                    </div>
+                </div>
+                <!-- Compromised Files Card -->
+                <div class="card border-t-4 border-green-500">
+                    <div class="flex flex-col items-center">
+                        <svg class="w-16 h-16 mb-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        <h3 class="text-xl font-bold mb-2">受影響檔案</h3>
+                        <p class="text-5xl font-bold text-green-500">2<span class="text-xl ml-2">筆</span></p>
+                        <span class="mt-4 text-sm font-semibold text-white bg-green-600 px-3 py-1 rounded-full">低風險</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: What is Dark Web Intelligence -->
+    <div id="slide4" class="slide">
+        <div class="card w-full max-w-4xl">
+            <h2 class="text-3xl font-bold text-blue-600 mb-6 text-center">暗網情蒐服務解析</h2>
+            <!-- Tabs -->
+            <div class="border-b border-gray-200 flex justify-center mb-6">
+                <div class="tab active" onclick="openTab(event, 'leakedCredentials')">外洩之憑證</div>
+                <div class="tab" onclick="openTab(event, 'compromisedEndpoints')">受影響端點</div>
+                <div class="tab" onclick="openTab(event, 'compromisedFiles')">受影響檔案</div>
+            </div>
+
+            <!-- Tab Content -->
+            <div id="leakedCredentials" class="tab-content active p-4 bg-gray-50 rounded-lg">
+                <h3 class="text-xl font-semibold mb-2 text-red-600">外洩之憑證 (Leaked Credentials)</h3>
+                <p class="text-gray-600">當同仁使用公務信箱在第三方網站註冊，若該網站資料庫遭駭，或個人電腦感染竊資軟體，帳號密碼便可能外洩。攻擊者可利用「撞庫攻擊 (Credential Stuffing)」，嘗試登入組織內部系統，造成嚴重資安風險。</p>
+            </div>
+            <div id="compromisedEndpoints" class="tab-content p-4 bg-gray-50 rounded-lg">
+                <h3 class="text-xl font-semibold mb-2 text-yellow-600">受影響端點 (Compromised Endpoints)</h3>
+                <p class="text-gray-600">指個人電腦或裝置可能因遭受釣魚攻擊、惡意程式感染等手法而被入侵。這會導致裝置上的敏感資訊外洩，如使用者帳密、IP位址、硬體ID等，駭客可利用這些資訊發動進一步攻擊。</p>
+            </div>
+            <div id="compromisedFiles" class="tab-content p-4 bg-gray-50 rounded-lg">
+                <h3 class="text-xl font-semibold mb-2 text-green-600">受影響檔案 (Compromised Files)</h3>
+                <p class="text-gray-600">裝置感染特定惡意程式 (Stealer) 後，程式會自動搜尋並竊取敏感檔案，特別是桌面或文件等目錄。例如，若桌面上存有 <code class="bg-gray-100 text-pink-600 px-2 py-1 rounded">passwords.txt</code> 這類檔案，就可能被完整竊取。</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 5: Recommended Actions -->
+    <div id="slide5" class="slide">
+        <div class="card w-full max-w-4xl">
+            <h2 class="text-3xl font-bold text-blue-600 mb-6 text-center">建議防護措施</h2>
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-red-600 mb-3 border-l-4 border-red-500 pl-3">針對「外洩之憑證」</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><strong>強化資安意識：</strong>宣導<span class="font-bold text-gray-800">不得使用公務信箱</span>註冊非公務網站。</li>
+                        <li><strong>密碼獨立性：</strong>要求不同網站、服務、系統<span class="font-bold text-gray-800">使用不同密碼</span>。</li>
+                        <li><strong>立即應變：</strong>通知受影響同仁立即變更密碼，並註銷非公務網站的帳號。</li>
+                        <li><strong>導入雙因素認證 (MFA)：</strong>即使帳密外洩，駭客也無法輕易登入。</li>
+                        <li><strong>電腦掃描：</strong>請受影響同仁使用防毒軟體掃描公務及個人電腦。</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-yellow-600 mb-3 border-l-4 border-yellow-500 pl-3">針對「端點與檔案」</h3>
+                     <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><strong>端點防護：</strong>安裝並更新 EDR、XDR 或防毒軟體，即時攔截惡意程式。</li>
+                        <li><strong>資料不落地：</strong>限制使用者於桌面或文件等目錄儲存敏感資訊檔案。</li>
+                        <li><strong>定期修補：</strong>定期執行弱點掃描與修補作業，防止惡意程式利用漏洞滲透。</li>
+                        <li><strong>使用者教育：</strong>加強宣導，避免下載或執行來路不明的可疑檔案與連結。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 6: Conclusion -->
+    <div id="slide6" class="slide">
+        <div class="card w-full max-w-4xl text-center">
+            <h2 class="text-3xl font-bold text-blue-600 mb-6">結論與後續步驟</h2>
+            <p class="text-lg text-gray-600 mb-8">
+                本次情蒐發現 <span class="text-red-500 font-bold text-xl">1,300 筆</span> 外洩憑證，為高風險項目，建議立即採取行動。應儘速依報告中各情資類型，採取相對應之防護措施，以確保資訊安全。
+            </p>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                <h3 class="text-xl font-bold text-blue-800 mb-3">首要行動建議</h3>
+                <ol class="list-decimal list-inside text-left space-y-2 text-gray-800">
+                    <li>立即處理 <strong>1,300 筆</strong> 外洩憑證，通知相關人員變更密碼。</li>
+                    <li>全面評估並導入或強化<strong>多因素驗證 (MFA)</strong> 機制。</li>
+                    <li>再次對全體同仁進行資安意識宣導與教育訓練。</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Navigation -->
+    <button id="prevBtn" class="nav-button" onclick="changeSlide(-1)">‹ 上一頁</button>
+    <button id="nextBtn" class="nav-button" onclick="changeSlide(1)">下一頁 ›</button>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar-container">
+        <div id="progressBar" class="progress-bar"></div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            showSlide(currentSlide);
+        });
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.classList.remove('active'));
+            document.getElementById(`slide${n}`).classList.add('active');
+            updateControls();
+            updateProgressBar();
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            if (currentSlide > totalSlides) {
+                currentSlide = 1;
+            }
+            if (currentSlide < 1) {
+                currentSlide = totalSlides;
+            }
+            showSlide(currentSlide);
+        }
+
+        function updateControls() {
+            document.getElementById('prevBtn').style.display = currentSlide === 1 ? 'none' : 'block';
+            document.getElementById('nextBtn').textContent = currentSlide === totalSlides ? '重新開始' : '下一頁 ›';
+        }
+
+        function updateProgressBar() {
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+
+        // Tab functionality
+        function openTab(evt, tabName) {
+            const tabcontent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove('active');
+            }
+            const tablinks = document.getElementsByClassName("tab");
+            for (let i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove('active');
+            }
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') {
+                if (currentSlide < totalSlides) changeSlide(1);
+            } else if (event.key === 'ArrowLeft') {
+                if (currentSlide > 1) changeSlide(-1);
+            }
+        });
+    </script>
+
+</body>
+</html>
+
